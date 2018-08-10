@@ -1,0 +1,16 @@
+/*
+Es buena practica declarar el archivo .css dentro de la misma carpeta que incluye el js que queremos
+modificar y con el mismo nombre. Aún haciendo esto, el archivo .css es global, puede accederse 
+desde cualquier lugar del proyecto. Al usar el mismo nombre que el archivo que queremos modificar
+nos aseguramos que no lo declaremos en ningún otro lado accidentalmente
+
+ ****** RECORDAR IMPORTAR ESTE ARCHIVO EN CUALQUIER LUGAR DEL PROYECTO DONDE SE UTILICE ******
+*/
+.Person{
+    width: 60%;
+    margin: 16px auto;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    padding: 16px;
+    text-align: center;
+}
