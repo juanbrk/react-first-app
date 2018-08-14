@@ -32,14 +32,45 @@ class App extends Component {
     })
   }
 
+  
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
-    //Cambiamos el valor de showPersons del state. Este bloque cambia unicamente el valor de showPersons
-    //El resto del state se mantiene intacto
     this.setState({showPersons: !doesShow})
   }
 
+
+
   render() {
+
+    //Podemos usar el sector entre render() y return para agregar logica
+    //En este caso trasladamos la logica del operador ternario hacia aqui afuera
+    //declaramos una variable persons que puede ser null o contener componentes segun la condicion
+    //this.state.showPersons
+
+    //De esta manera cuando llamemos {persons} en return, el codigo rendeara algo nulo o algo que retorne
+    // un componente. 
+    // de esta manera mejoramos la readability del codigo y eliminamos el operador ternario que puede
+    //complicarsecuando hay muchos ternarios nested. Esta es la manera javascript de hacerlo
+    let persons = null;
+
+    if (this.state.showPersons){
+      persons =(
+        <div>
+              <Person
+                name={this.state.personaas[0].name}
+                age={this.state.personaas[0].age}/>
+              <Person
+                name={this.state.personaas[1].name} 
+                age="25" 
+                click={this.switchNameHandler.bind(this, "Juanete")}
+                changed={this.changedNameHandler}/>
+              <Person
+                name={this.state.personaas[2].name} 
+                age={this.state.personaas[2].age}/>
+          </div> 
+      );
+    }
+
     const style = {
       backgroundColor:'white',
       font:'inherit',
@@ -49,37 +80,14 @@ class App extends Component {
       margin:'auto'
     };
 
-    //Se puede ejecutar codigo javascript al wrapear en {} a todo aquello que sea dinamico y pueda cambiar
-    //En este caso agrupamos a todos los <Person> en un div y aplicamos un operador ternario para ejecutar
-    //un cambio condicional. No se permite usar bloques if dentro del codigo. Se usa un ternary 
-    //Sintaxis del ternary condicion ? ejecutaSiTrue :  ejecutaSiElse
     return (
-      <div className="App">
-        <button
-         onClick={this.togglePersonsHandler}
-         style={style}
-        >Switch name</button>
-        
-        {
-          this.state.showPersons ? 
-          <div>
-            <Person
-              name={this.state.personaas[0].name}
-              age={this.state.personaas[0].age}/>
-            <Person
-              name={this.state.personaas[1].name} 
-              age="25" 
-              click={this.switchNameHandler.bind(this, "Juanete")}
-              changed={this.changedNameHandler}/>
-            <Person
-              name={this.state.personaas[2].name} 
-              age={this.state.personaas[2].age}/>
-        </div> : null
-        }
-        
-        
-
-      </div>
+    <div className="App">
+      <button
+        onClick={this.togglePersonsHandler}
+        style={style}
+      >Switch name</button>
+      {persons}
+    </div>
     );
   }
 }
