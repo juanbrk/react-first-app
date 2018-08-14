@@ -21,11 +21,14 @@ class App extends Component {
     })
   } 
 
-  // Esta funcion maneja la remocion de personas dado el indice de la persona en el array del estado
-  //Generamos una neuva array, copia de la original. Removemos el elemento con el metodo splice y 
-  // seteamos el estado pasando la nueva array
+  // usar el operador = entre arrays las copia por referencia. Lo que queremos que se haga es una nueva
+  //array, eso se hace usando el operador ES6 spread ... que vierte el contenido de la antigua array en
+  // una nueva. Esto se hace así porque siempre se debe mantener la inmutabilidad del estado del componente
+  // y una array copiada por referencia no es la mejor manera de hacerlo. 
   deletePersonHandler = (indicePersona) =>{
-    const personas = this.state.personaas;
+    //const personas = this.state.personaas.slice();
+    //Esta es la forma antigua de hacerlo, es equivalente a utilizar spread
+    const personas = [...this.state.personaas];
     personas.splice(indicePersona, 1);
     this.setState({personaas: personas});
   }
@@ -43,8 +46,6 @@ class App extends Component {
       persons =(
         <div>
           {
-            // El metodo map provee otro argumento que es el index del objeto que manipularemos, esto nos
-            //Permite poder pasarle esta informacion a metodos o funciones que hagan algo con el objeto
             this.state.personaas.map((persona, indice) => {
             return (
               <Person
