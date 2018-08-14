@@ -19,17 +19,15 @@ class App extends Component {
         {name: 'Luchas', age: 18}
       ]
     })
-  }
+  } 
 
-  changedNameHandler = (event) =>{
-    this.setState({
-      personaas: [
-        {name: "Juan", age:25},
-        {name: event.target.value, age: 312},
-        {name: 'Luchas', age: 18}
-      ],
-      showPersons: false
-    })
+  // Esta funcion maneja la remocion de personas dado el indice de la persona en el array del estado
+  //Generamos una neuva array, copia de la original. Removemos el elemento con el metodo splice y 
+  // seteamos el estado pasando la nueva array
+  deletePersonHandler = (indicePersona) =>{
+    const personas = this.state.personaas;
+    personas.splice(indicePersona, 1);
+    this.setState({personaas: personas});
   }
 
   
@@ -39,21 +37,20 @@ class App extends Component {
   }
 
 
-
   render() {
     let persons = null;
     if (this.state.showPersons){
       persons =(
         <div>
           {
-          // este es el patron en react para mostrar elementos en lista. Usamos javascript para mapear
-          // cada elemento de la array personaas en un elemento JSX. Esto se hace porque la array personaas
-          // es una array de objetos JS y en el render deben usarse objetos JSX. 
-            this.state.personaas.map(persona => {
+            // El metodo map provee otro argumento que es el index del objeto que manipularemos, esto nos
+            //Permite poder pasarle esta informacion a metodos o funciones que hagan algo con el objeto
+            this.state.personaas.map((persona, indice) => {
             return (
               <Person
               name={persona.name} 
-              age={persona.age} />
+              age={persona.age}
+              click={() => this.deletePersonHandler(indice)} />
             );
           })}
           </div> 
