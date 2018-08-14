@@ -41,32 +41,21 @@ class App extends Component {
 
 
   render() {
-
-    //Podemos usar el sector entre render() y return para agregar logica
-    //En este caso trasladamos la logica del operador ternario hacia aqui afuera
-    //declaramos una variable persons que puede ser null o contener componentes segun la condicion
-    //this.state.showPersons
-
-    //De esta manera cuando llamemos {persons} en return, el codigo rendeara algo nulo o algo que retorne
-    // un componente. 
-    // de esta manera mejoramos la readability del codigo y eliminamos el operador ternario que puede
-    //complicarsecuando hay muchos ternarios nested. Esta es la manera javascript de hacerlo
     let persons = null;
-
     if (this.state.showPersons){
       persons =(
         <div>
+          {
+          // este es el patron en react para mostrar elementos en lista. Usamos javascript para mapear
+          // cada elemento de la array personaas en un elemento JSX. Esto se hace porque la array personaas
+          // es una array de objetos JS y en el render deben usarse objetos JSX. 
+            this.state.personaas.map(persona => {
+            return (
               <Person
-                name={this.state.personaas[0].name}
-                age={this.state.personaas[0].age}/>
-              <Person
-                name={this.state.personaas[1].name} 
-                age="25" 
-                click={this.switchNameHandler.bind(this, "Juanete")}
-                changed={this.changedNameHandler}/>
-              <Person
-                name={this.state.personaas[2].name} 
-                age={this.state.personaas[2].age}/>
+              name={persona.name} 
+              age={persona.age} />
+            );
+          })}
           </div> 
       );
     }
