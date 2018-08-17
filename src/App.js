@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Radium from 'radium';
 import './App.css';
 import Person from './Person/Person.js';
 
@@ -46,13 +47,35 @@ class App extends Component {
 
 
   render() {
+    
+    const style = {
+      backgroundColor:'green',
+      color:'white',
+      font:'inherit',
+      border:'1px solid blue',
+      padding: '8px',
+      cursor:'pointer',
+      margin:'auto'
+    };
+
+    const classes = [];
+    if(this.state.personaas.length <= 2){
+      classes.push('red');
+    }
+    if(this.state.personaas.length <= 1){
+      classes.push('bold');
+    }
+
+
     let persons = null;
     if (this.state.showPersons){
       persons =(
         <div>
+           <p className={classes.join(' ')}>Esto esta funcionando</p>
           {
             this.state.personaas.map((persona, indice) => {
             return (
+             
               <Person
               key={persona.id}
               click={() => this.deletePersonHandler(indice)}
@@ -64,17 +87,8 @@ class App extends Component {
           })}
           </div> 
       );
+      style.backgroundColor= 'red';
     }
-
-    const style = {
-      backgroundColor:'white',
-      font:'inherit',
-      border:'1px solid blue',
-      padding: '8px',
-      cursor:'pointer',
-      margin:'auto'
-    };
-
     return (
     <div className="App">
       <button
