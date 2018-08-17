@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+//Importar radium para poder usarlo
 import Radium from 'radium';
 import './App.css';
 import Person from './Person/Person.js';
@@ -12,27 +13,21 @@ class App extends Component {
     ]
   };
 
-  //Usamos el metodo para cambiar el nombre de una persona, cambiando el estado del componente. 
   switchNameHandler = (event, id) => {
     
-    //Busco el indice de la persona a cambiar el nombre
     const personIndex = this.state.personaas.findIndex(p => {
       return p.id === id;
     });
-    //creo un nuevo objeto para evitar valor por referencia. Uso el operador spread para que el objeto tenga
-    //los mismos atributos que la persona que obtuvimos de la array.  
     const person = {...this.state.personaas[personIndex]};
-    
-    //Actualizo el nombre de la persona fetcheada, puedo hacerlo porque la array es distinta a la del estado
     person.name = event.target.value;
 
-    //Actualizo la array y el estado del componente
     const persons = [...this.state.personaas];
     persons[personIndex] = person;
     this.setState({
       personaas: persons 
     })
-  } 
+  }
+
   deletePersonHandler = (indicePersona) =>{
     const personas = [...this.state.personaas];
     personas.splice(indicePersona, 1);
@@ -55,7 +50,14 @@ class App extends Component {
       border:'1px solid blue',
       padding: '8px',
       cursor:'pointer',
-      margin:'auto'
+      margin:'auto',
+      //Esta es la sintaxis para usar Radium con cualquier pseudo selector, envolverlos en '' para que sean
+      //string en JSX. el valor es un nuevo objeto JS para que contenga el conjutno de estilos para el estado
+      //cuando hoveree
+      ':hover':{
+        backgroundColor:'lightgreen',
+        color:'black'
+      }
     };
 
     const classes = [];
@@ -88,6 +90,12 @@ class App extends Component {
           </div> 
       );
       style.backgroundColor= 'red';
+      //Para actualizar el pseudo selector no podemos usar style.:hover sino que tenemos que usar la sintaxis
+      //stile[':nombreDelSelector'] = {}
+      style[':hover'] = {
+        backgroundColor:'salmon',
+        color:'black'
+      };
     }
     return (
     <div className="App">
@@ -101,4 +109,7 @@ class App extends Component {
   }
 }
 
-export default App;
+// Hacemos este wrap para poder usar las funcionalidades ofrecidas por radium
+//Puede hacerse lo mismo en components que heredan de Component o elementos funciones, imprtando radium y
+//wrapeando el export
+export default Radium(App);
