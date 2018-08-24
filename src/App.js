@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//Importamos un objeto JS que contendrá las clases de App.css como propiedades. 
 import classes from'./App.css';
 import Person from './Person/Person.js';
 
@@ -42,17 +41,9 @@ class App extends Component {
 
   render() {
 
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      margin: 'auto'
-    };
+    //Clase que tendrá el boton, se asignará dinamicamente el cambio
+    let btnClass = '';
 
-    //Agregamos a la array los estilos a partir del objeto classes importado 
     const assignedClasses = [];
     if (this.state.personaas.length <= 2) {
       assignedClasses.push(classes.red);
@@ -82,16 +73,16 @@ class App extends Component {
             })}
         </div>
       );
-      style.backgroundColor = 'red';
+      //Asignacion dinamica de la clase del boton. Webpack devuelve una string, por lo que puede hacerse
+      // className= {btnClass}
+      btnClass = classes.red;
     }
     return (
-      //El nombre de la clase es uno generado por la propiedad ident... que agregamos en webpack...
-      // y al que accedemos a partir del objeto classes importado . El nombre sera un id unico generado 
-      //para este componente
         <div className={classes.App}>
           <button
+          //Asignamos dinamicamente la clase al bton. 
+            className={btnClass}
             onClick={this.togglePersonsHandler}
-            style={style}
           >Switch name</button>
           {persons}
         </div>
