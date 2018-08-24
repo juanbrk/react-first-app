@@ -40,8 +40,6 @@ class App extends Component {
 
 
   render() {
-
-    //Clase que tendrá el boton, se asignará dinamicamente el cambio
     let btnClass = '';
 
     const assignedClasses = [];
@@ -73,14 +71,11 @@ class App extends Component {
             })}
         </div>
       );
-      //Asignacion dinamica de la clase del boton. Webpack devuelve una string, por lo que puede hacerse
-      // className= {btnClass}
       btnClass = classes.red;
     }
     return (
         <div className={classes.App}>
           <button
-          //Asignamos dinamicamente la clase al bton. 
             className={btnClass}
             onClick={this.togglePersonsHandler}
           >Switch name</button>

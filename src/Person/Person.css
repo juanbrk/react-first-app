@@ -14,3 +14,12 @@ nos aseguramos que no lo declaremos en ningún otro lado accidentalmente
     padding: 16px;
     text-align: center;
 }
+
+/*
+    Agregamos esta media query que será importada por Person.js en el import classes from person.css
+*/
+@media (min-width: 500px){
+    .Person {
+        width:450px;
+    }
+}
