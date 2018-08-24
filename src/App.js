@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
+//Importamos un objeto JS que contendrá las clases de App.css como propiedades. 
+import classes from'./App.css';
 import Person from './Person/Person.js';
 
 class App extends Component {
@@ -51,12 +52,13 @@ class App extends Component {
       margin: 'auto'
     };
 
-    const classes = [];
+    //Agregamos a la array los estilos a partir del objeto classes importado 
+    const assignedClasses = [];
     if (this.state.personaas.length <= 2) {
-      classes.push('red');
+      assignedClasses.push(classes.red);
     }
     if (this.state.personaas.length <= 1) {
-      classes.push('bold');
+      assignedClasses.push(classes.bold);
     }
 
 
@@ -64,7 +66,7 @@ class App extends Component {
     if (this.state.showPersons) {
       persons = (
         <div>
-          <p className={classes.join(' ')}>Esto esta funcionando</p>
+          <p className={assignedClasses.join(' ')}>Esto esta funcionando</p>
           {
             this.state.personaas.map((persona, indice) => {
               return (
@@ -83,7 +85,10 @@ class App extends Component {
       style.backgroundColor = 'red';
     }
     return (
-        <div className="App">
+      //El nombre de la clase es uno generado por la propiedad ident... que agregamos en webpack...
+      // y al que accedemos a partir del objeto classes importado . El nombre sera un id unico generado 
+      //para este componente
+        <div className={classes.App}>
           <button
             onClick={this.togglePersonsHandler}
             style={style}
