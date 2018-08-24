@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import classes from'./App.css';
+import classes from './App.css';
 import Person from './Person/Person.js';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
   state = {
@@ -59,14 +60,20 @@ class App extends Component {
           {
             this.state.personaas.map((persona, indice) => {
               return (
-
-                <Person
-                  key={persona.id}
-                  click={() => this.deletePersonHandler(indice)}
-                  name={persona.name}
-                  age={persona.age}
-                  changed={(event) => this.switchNameHandler(event, persona.id)}
-                />
+                //Wrapeamos lo que puede retornar un error en errorBoundary. ErrorBoundary es un higher order
+                //component, es un componente que wrapea otro componente con el proposito de agarrar cualquier
+                //error que el elemento wrapeado tira.
+                //El atributo key debe ir siempre en el Outer element que se mapea. por eso lo movemos a ErrorB
+                //Solo debe usarse cuando hace sentido, no envolver todo con un ErrorBoundary
+                // Solo funciona en production mode y no en development mode. 
+                <ErrorBoundary key={persona.id}> 
+                  <Person
+                    click={() => this.deletePersonHandler(indice)}
+                    name={persona.name}
+                    age={persona.age}
+                    changed={(event) => this.switchNameHandler(event, persona.id)}
+                  />
+                </ErrorBoundary>
               );
             })}
         </div>
@@ -74,14 +81,14 @@ class App extends Component {
       btnClass = classes.red;
     }
     return (
-        <div className={classes.App}>
-          <button
-            className={btnClass}
-            onClick={this.togglePersonsHandler}
-          >Switch name</button>
-          {persons}
-        </div>
-      
+      <div className={classes.App}>
+        <button
+          className={btnClass}
+          onClick={this.togglePersonsHandler}
+        >Switch name</button>
+        {persons}
+      </div>
+
     );
   }
 }
