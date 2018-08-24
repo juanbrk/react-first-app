@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-//Importar StyleRoot para poder usar media queries
-import Radium, { StyleRoot } from 'radium';
 import './App.css';
 import Person from './Person/Person.js';
 
@@ -50,11 +48,7 @@ class App extends Component {
       border: '1px solid blue',
       padding: '8px',
       cursor: 'pointer',
-      margin: 'auto',
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
+      margin: 'auto'
     };
 
     const classes = [];
@@ -87,15 +81,8 @@ class App extends Component {
         </div>
       );
       style.backgroundColor = 'red';
-      style[':hover'] = {
-        backgroundColor: 'salmon',
-        color: 'black'
-      };
     }
     return (
-      //Para poder usar media queries hay que hacer un wrap en la aplicacion con StyleRoot
-      // Estamos usando mediaQUeries para redimensionar el componente Person
-      <StyleRoot>
         <div className="App">
           <button
             onClick={this.togglePersonsHandler}
@@ -103,9 +90,9 @@ class App extends Component {
           >Switch name</button>
           {persons}
         </div>
-      </StyleRoot>
+      
     );
   }
 }
 
-export default Radium(App);
+export default App;
