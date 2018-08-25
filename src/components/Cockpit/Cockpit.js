@@ -1,16 +1,19 @@
 import React from 'react';
 import classes from './Cockpit.css';
+import Aux from '../../HOC/Aux';
 
 const Cockpit = (props) => {
 
     //Variables que sirven para las clases de los elementos que usaremos
     const assignedClasses = [];
     
-    let btnClass = '';
+    //Cambie .Cockpit por .Button ya que es para el unico elemento que necesito estilo
+    let btnClass = classes.Button;
     
     //Cambiamos la clase del boton segun si el booleano pasado por parametro es true o false
     if (props.showPersons){
-        btnClass = classes.red;
+        //Agrupo clases si se cumple la condicion
+        btnClass = [classes.Button, classes.red ].join(' ');
     }
 
     // personas es una array pasada por parametro conteniendo las personas
@@ -22,7 +25,10 @@ const Cockpit = (props) => {
     }
 
     return (
-        <div className={classes.Cockpit}>
+        //Elimino el ClassName del Div ya que solo necesito Estilizar el button y envuelvo a los elementos
+        //retornados en un Higher Order Component. Hago esto porque no tengo necesida de estilizar un
+        // grupo de elementos, solo necesito agruparlos.  
+        <Aux >
             <h1>Hi this is a React app</h1>
             <p 
                 className={assignedClasses.join(' ')}
@@ -31,7 +37,7 @@ const Cockpit = (props) => {
                 className={btnClass}
                 onClick={props.clicked}
             >Switch name</button>
-        </div>
+        </Aux>
     );
 }
 
