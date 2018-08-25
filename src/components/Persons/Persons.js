@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+//Importamos PureComponent en lugar de Component
+import React, { PureComponent } from 'react';
 import Person from './Person/Person';
 
 /*
@@ -6,8 +7,8 @@ Para convertir un stateless en un stateful tengo que importar Component from rea
 elemento extienda Component y llamar al metodo render()
 */
 
-
-class persons extends Component {
+//Heredamos de PureComponent
+class persons extends PureComponent {
 
     constructor(props){
         super(props);
@@ -27,16 +28,19 @@ class persons extends Component {
           console.log("[UDATE Persons.js] inside componentWillReceiveProps", nextProps);
       }
 
-      //Segundo metodo que se ejecuta frente a la actualización del componente y antes de volver a llamar a render()
-      //Metodo que nos permite decidir si el componente se actualizará o no. Nos permite ahorrar un poco
-      // de desempeño o performance. 
+      /*
+      En lugar de hacer todo este chequeo para ver si debe actualizarse el DOM, lo hacemos mediante 
+      PureComponent que tiene estos chequeos built-in, es decir chequea todas las propiedades y se 
+      fija si alguna se actualizo. 
+
       shouldComponentUpdate(nextProps, nextState){
           console.log("[UPDATE Persons.js] inside shouldComponentUpdate", nextProps, nextState);
-          //DEBE RETORNAR TRUE O FALSE. si retorna true, se actualiza sino se detiene el proceso de
-          // actualizacion sin llegar a volver a llamar al metodo render() para que actualize el DOM
-          return this.props.personas !== nextProps.personas;
+          
+          return this.props.personas !== nextProps.personas || 
+                this.props.changed !== nextProps.changed || 
+                this.props.clicked !== nextProps.clicked;
       }
-
+    */
 
       //Tercer metodo que se ejecuta frente a la actualización del componente
       //Se usa cuando se esta por actualizar el componente

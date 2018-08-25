@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+//Importamos PureComponent en lugar de Component
+import React, { PureComponent } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
-class App extends Component {
+class App extends PureComponent {
   
   // En un componente stateful en el unico lugar al que podemos acceder a props sin la palabra this
   // es en el constructor. En cualquier otro lugar debe ser this.props...
@@ -25,9 +26,28 @@ class App extends Component {
   // El orden en el que están en el codigo no importa, se ejecutan segun el orden especificado por react
   componentDidMount(){
     console.log("[App.js] inside componentDidMount");
-
   }
 
+
+  
+  /*
+    El buen uso de este metodo es para que se vuelva a llamar a render para actualizar el DOM si es 
+    que algo efectivamente cambia. Si no cambia nada, no hay necesidad de llamar a render para mejorar
+    el desempeño de la aplicacion. Solo se re rendearizará el DOM si hubo algun cambio. 
+
+    Ver funcionamiento cuando hago click en el boton show persons cuando las personas ya están cargadas
+  */ 
+  
+  /*
+  shouldComponentUpdate(nextProps, nextState){
+    console.log("[App.js] Inside shouldComponentUpdate");
+    return this.state.personaas !== nextState.personaas || 
+      this.state.showPersons !== nextState.showPersons
+  }
+
+  En lugar de hacerlo de esta manera, podemos hacerlo sin implementar shouldComponentUpdate sino que 
+  heredando de otro componente, PureComponent
+*/
   state = {
     personaas: [
       { id: 'fa49s8', name: 'Juan', age: 25 },
@@ -77,6 +97,7 @@ class App extends Component {
     }
     return (
       <div className={classes.App}>
+        <button onClick={() => {this.setState({showPersons: true})}}>Show Persons</button>
         <Cockpit
           showPersons={this.state.showPersons}
           personas={this.state.personaas} 
