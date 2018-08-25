@@ -4,5 +4,6 @@ import './index.css';
 import App from './containers/App';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+//Podemos pasar props tb para los componentes containers
+ReactDOM.render(<App title="Que mira gato" />, document.getElementById('root'));
 registerServiceWorker();

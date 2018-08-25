@@ -4,6 +4,30 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
+  
+  // En un componente stateful en el unico lugar al que podemos acceder a props sin la palabra this
+  // es en el constructor. En cualquier otro lugar debe ser this.props...
+  // Si se implementa el constructor Lo primero que hay que hacer es llamar a super(props) para que funcione
+
+  //1er metodo llamado en la creacion del componente stateful
+  constructor(props){
+    super(props);
+    // Aca podría inicializar el state con this.state=...
+    console.log("[App.js] constructor", props);
+  }
+
+  //2do metodo llamado en la creacion del componente stateful
+  componentWillMount(){
+    console.log("[App.js] Component will mount ");
+  }
+
+  //4to metodo llamado en la creacion del componente stateful
+  // El orden en el que están en el codigo no importa, se ejecutan segun el orden especificado por react
+  componentDidMount(){
+    console.log("[App.js] inside componentDidMount");
+
+  }
+
   state = {
     personaas: [
       { id: 'fa49s8', name: 'Juan', age: 25 },
@@ -38,7 +62,9 @@ class App extends Component {
     const doesShow = this.state.showPersons;
     this.setState({ showPersons: !doesShow })
   }
+  //3er metodo llamado en la creacion del componente stateful Y el UNICO OBLIGATORIO
   render() {
+    console.log("[App.js] inside render")
 
     let persons = null;
     if (this.state.showPersons) {
