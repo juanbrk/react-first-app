@@ -25,10 +25,8 @@ const Cockpit = (props) => {
     }
 
     return (
-        //Elimino el ClassName del Div ya que solo necesito Estilizar el button y envuelvo a los elementos
-        //retornados en un Higher Order Component. Hago esto porque no tengo necesida de estilizar un
-        // grupo de elementos, solo necesito agruparlos.  
-        <Aux >
+       
+        <Aux>
             <h1>Hi this is a React app</h1>
             <p 
                 className={assignedClasses.join(' ')}
