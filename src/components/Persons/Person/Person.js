@@ -10,6 +10,8 @@ class person extends Component {
     constructor(props) {
         super(props);
         console.log("[Person.js] constructor", props);
+        //Creamos un objeto ref con createRef() disponible a partir de React 16.3.0
+        this.inputElement = React.createRef();
     }
 
     componentWillMount() {
@@ -17,17 +19,8 @@ class person extends Component {
     }
 
     componentDidMount() {
-        /*
-            Desde aca podemos acceder al atributo creado con ref. Como el atributo se crea durante render() y este metodo es el siguiente en el 
-            orden de llamadas en la creación del componente, accedo desde aca y llamo el metodo focus que es un metodo disponible para los <input>
-
-            Si queremos hacer foco sobre alguno en particular, accedemos a la prop del elemento que deseamos
-
-            if (this.props.position === 0) {
-                focus...
-            }
-        */
-       this.inputElement.focus();
+        // Para acceder a ref, debemos acceder al current ref. 
+       this.inputElement.current.focus();
 
         console.log("[Person.js] inside componentDidMount");
     }
@@ -40,12 +33,8 @@ class person extends Component {
             type="text" 
             onChange={this.props.changed} 
             value={this.props.name}
-            /* 
-                Agrego un atributo ref, que solo pueden tener los stateful components. Recibe una funcion y crea un atributo para la clase Person
-                inp es este elemento <input> . inputElement es el nombre de la nueva propiedad que estará disponible para acceder desde otro lado
-                en la clase. Será creada cuando corra render. 
-            */
-            ref={(inp)=> {this.inputElement = inp}}
+            // nueva manera de conectar la referencia al elemento despues de haberlo creado con createRef()
+            ref={this.inputElement}
              />
         </Auxiliary>
     }
