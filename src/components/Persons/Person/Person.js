@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+// Libreria que nos permite garantizar el correcto pasaje de tipos para las props desde otros componentes
+import PropTypes from 'prop-types';
+
 import classes from './Person.css';
 import withClass from '../../../HOC/withClass';
 import Auxiliary from '../../../HOC/Auxiliary';
@@ -25,5 +28,24 @@ class person extends Component {
         </Auxiliary>
     }
 }
+
+
+/* 
+    aca hacemos el enforcing para el correcto pasaje de los tipos para las props. La propiedad desp del punto es propTypes con p minuscula
+    dentro de la declaracion es con P mayuscula, es el objeto importado desde 'prop-types'
+    When an invalid value is provided for a prop, a warning will be shown in the JavaScript console
+
+    https://reactjs.org/docs/typechecking-with-proptypes.html
+*/
+person.propTypes  = {
+    //El valor que se pasa a la propiedad click, debe ser una funcion
+    click:PropTypes.func,
+    //El valor que se pasa a la propiedad name, debe ser un string
+    name:PropTypes.string,
+    //El valor que se pasa a la propiedad age, debe ser un numero
+    age:PropTypes.number,
+    //El valor que se pasa a la propiedad changed, debe ser 
+    changed: PropTypes.func
+};
 
 export default withClass(person, classes.Person);
