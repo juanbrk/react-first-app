@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+// withClass no puede ser usado como componente porque no califica como tal. Devuelve una funcion
 import withClass from '../HOC/withClass';
 import Auxiliary from '../HOC/Auxiliary';
 
@@ -111,4 +112,5 @@ class App extends PureComponent {
   }
 }
 
+//Envolvemos el export en la "funcion" withClass pasando como parametro el componente a envolver y el estilo que tendra el div que lo envuelve
 export default withClass(App, classes.App);
